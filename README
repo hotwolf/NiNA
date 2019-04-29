@@ -3,23 +3,6 @@ NiNA
 
 NiNA is a small computer system integrating N1 CPUs. 
 
-Directories:
-============
-|
-+-components           
-|  |
-|  +-N1                 - N1 processor
-|  |
-|  +-WbXbc              - Wishbone crossbar components
-|  |
-|  +-...                - TBD
-|
-+-doc                   - User manual 
-   |
-   +-src                - LaTex source files
-   |
-   +-run                - Build directory
-
 The NiNA soft IP is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
