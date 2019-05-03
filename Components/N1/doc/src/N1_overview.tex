@@ -1,0 +1,153 @@
+%###############################################################################
+%# N1 - Manual - Overview                                                      #
+%###############################################################################
+%#    Copyright 2018 Dirk Heisswolf                                            #
+%#    This file is part of the N1 project.                                     #
+%#                                                                             #
+%#    N1 is free software: you can redistribute it and/or modify               #
+%#    it under the terms of the GNU General Public License as published by     #
+%#    the Free Software Foundation, either version 3 of the License, or        #
+%#    (at your option) any later version.                                      #
+%#                                                                             #
+%#    N1 is distributed in the hope that it will be useful,                    #
+%#    but WITHOUT ANY WARRANTY; without even the implied warranty of           #
+%#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            #
+%#    GNU General Public License for more details.                             #
+%#                                                                             #
+%#    You should have received a copy of the GNU General Public License        #
+%#    along with N1.  If not, see <http://www.gnu.org/licenses/>.              #
+%###############################################################################
+%# Version History:                                                            #
+%#   Novemmber 26, 2018                                                        #
+%#      - Initial release                                                      #
+%###############################################################################
+
+\section{Overview}
+\label{overview}
+
+The N1 is a 16-bit stack machine, targeted for low-end FPGA applications.
+Its instruction set and architecture are designed for efficient execution
+of \Gls{forth} code. 
+
+\noindent
+Here is a summary of the N1's characteristics:
+
+\begin{description}[style=nextline]
+
+%Memory connection  
+\item[Memory connection:]  
+  \begin{itemize}
+  \item[]
+  \item 16-bit \gls{vna}
+  \item Separate address space for \gls{stack} content
+  \item \Gls{wb} interfaces to main and stack memory 
+  \item Up to 128KB (main) memory space
+  \item Memory addressable in 16-bit entities only
+  \end{itemize}
+
+%Stacks  
+\item[Stacks:]
+  \begin{itemize}
+  \item[]
+  \item Two hardware \glspl{stack} (\glslink{ps}{parameter} and \gls{rs})
+  \item Each \gls{stack} consists of three segments:
+    \begin{description}[style=nextline]
+    %Upper stack  
+    \item[\Gls{us}:]
+      \begin{itemize}
+      \item[]
+      \item Shift registers with selectable shift direction for each individual cell
+      \item Fixed size
+        \begin{itemize}
+        \item Upper \gls{ps}: 4 \glspl{cell}
+        \item Upper \gls{rs}: 1 \gls{cell}
+        \end{itemize}
+      \end{itemize}
+    %Intermediate stack  
+    \item[\Gls{is}:]
+      \begin{itemize}
+      \item[]
+      \item Buffer with lazy data transfers to and from the lower stack
+      \item Configurable size
+      \end{itemize}
+    %Lower stack
+    \item[\Gls{ls}:]
+      \begin{itemize}
+      \item[]
+      \item \gls{ram} space shared by both \glspl{stack}
+      \item \Glspl{stack} grow towards each other
+      \item Up to 128KB in size
+      \end{itemize}
+    \end{description}
+  \end{itemize}
+
+%Instruction set  
+\item[Instruction set:]
+  \begin{itemize}
+  \item[]
+  \item Fixed instruction size of 16-bit
+  \item \Glspl{jump} and \glspl{call}
+    \begin{itemize}
+    \item \Gls{indadr}
+    \item \Gls{diradr} within a 32KB window
+    \item Two bus cycle execution time
+    \item Return from \glspl{call} performed concurrently with last instruction
+    \end{itemize}
+  \item \Glspl{branch}
+    \begin{itemize}
+    \item \glslink{diradr}{Direct} \gls{reladr} within a 16KB range
+    \item Two bus cycles of execution time if branch is taken, one cycle if not
+    \end{itemize}         
+  \item \Glspl{literal}
+    \begin{itemize}
+    \item \glslink{immop}{Immediate} encoding of literals between -2048 and 2047
+    \item Literals out of this range requre one additional instruction
+    \end{itemize}
+  \item \glslink{alu}{Arithmetic and logic operations}
+    \begin{itemize}
+    \item Single cycle \Gls{alu} operations include:
+      \begin{itemize}
+      \item Sum and Difference
+      \item Comparisons
+      \item Signed and unsigned products
+      \item Bitwise logic operations
+      \item Milti-bit shifts
+     \end{itemize}
+    \item Optional \glslink{immop}{immediate} encoding of one operand, using
+      5-bit encoding 
+    \end{itemize}
+  \item \Gls{stack} operations
+    \begin{itemize}
+      \item All 1024 stack transitions of the \gls{us} encodable
+    \end{itemize}
+  \item Memory I/O
+    \begin{itemize}
+    \item \Gls{indadr}
+    \item \Gls{diradr} within a 511B window
+    \item Two bus cycle execution time if branch is taken, one cycle if not
+    \end{itemize}   
+  \end{itemize}
+
+%Exceptions
+\item[Exceptions:]
+  \begin{itemize}
+  \item[]
+  \item Exception handler invoked by five error conditions:
+    \begin{itemize}
+    \item \Gls{ps} overflow
+    \item \Gls{ps} underflow
+    \item \Gls{rs} overflow
+    \item \Gls{rs} underflow
+    \item Access violations in the (main) address space
+    \end{itemize}
+  \end{itemize}
+    
+%Interrupts  
+\item[Interrupts:]
+  \begin{itemize}
+  \item[]
+  \item Optional interrupt support through external interrupt controller
+  \item Automatic interrupt acknowledge (flag clearing) supported
+  \end{itemize}
+  
+\end{description}

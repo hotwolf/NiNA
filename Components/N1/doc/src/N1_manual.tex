@@ -1,0 +1,205 @@
+%###############################################################################
+%# N1 - Manual - Main                                                          #
+%###############################################################################
+%#    Copyright 2018 - 2019 Dirk Heisswolf                                     #
+%#    This file is part of the N1 project.                                     #
+%#                                                                             #
+%#    N1 is free software: you can redistribute it and/or modify               #
+%#    it under the terms of the GNU General Public License as published by     #
+%#    the Free Software Foundation, either version 3 of the License, or        #
+%#    (at your option) any later version.                                      #
+%#                                                                             #
+%#    N1 is distributed in the hope that it will be useful,                    #
+%#    but WITHOUT ANY WARRANTY; without even the implied warranty of           #
+%#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            #
+%#    GNU General Public License for more details.                             #
+%#                                                                             #
+%#    You should have received a copy of the GNU General Public License        #
+%#    along with N1.  If not, see <http://www.gnu.org/licenses/>.              #
+%###############################################################################
+%# Version History:                                                            #
+%#   November 26, 2018                                                         #
+%#      - Initial release                                                      #
+%###############################################################################
+
+\documentclass[a4paper,
+               titlepage,
+               bibliography=totocnumbered]{article}
+
+\usepackage[margin=4cm]{geometry}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{nameref}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{adjustbox}
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tikz-timing}
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            citecolor=blue,
+            urlcolor=blue,
+            bookmarks=true,
+            bookmarksopen=true,
+            pdftitle={N1 Manual},
+            pdfauthor={Dirk Heisswolf},
+            pdfdisplaydoctitle=true]{hyperref}
+\usepackage[automake, numberedsection, nonumberlist]{glossaries}
+
+%Tables
+\makeatletter
+\def\nobreakhline{
+  \noalign{\ifnum0=`}\fi
+    \penalty\@M
+    \futurelet\@let@token\LT@@nobreakhline}
+\def\LT@@nobreakhline{
+  \ifx\@let@token\hline
+    \global\let\@gtempa\@gobble
+    \gdef\LT@sep{\penalty\@M\vskip\doublerulesep}
+  \else
+    \global\let\@gtempa\@empty
+    \gdef\LT@sep{\penalty\@M\vskip-\arrayrulewidth}
+  \fi
+  \ifnum0=`{\fi}
+  \multispan\LT@cols
+     \unskip\leaders\hrule\@height\arrayrulewidth\hfill\cr
+  \noalign{\LT@sep}%
+  \multispan\LT@cols
+     \unskip\leaders\hrule\@height\arrayrulewidth\hfill\cr
+  \noalign{\penalty\@M}
+  \@gtempa}
+\makeatother
+
+\pagestyle{fancy}
+
+%Glossary
+\makeglossaries
+\include{N1_glossary}
+
+\begin{document}
+
+%Overline
+\makeatletter
+\newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
+\makeatother
+
+%Counters
+\makeatletter
+\renewcommand{\thetable}{\thesection-\@arabic\c@table}
+\@addtoreset{table}{section}
+\makeatother
+
+\makeatletter
+\renewcommand{\thefigure}{\thesection-\@arabic\c@figure}
+\@addtoreset{figure}{section}
+\makeatother
+
+%References
+\newcommand{\secref}[2][Section]{\hyperref[{#2}]{\mbox{#1~\ref*{#2}} \mbox{``\nameref*{#2}``}}}
+\newcommand{\tabref}[2][Table]{\hyperref[{#2}]{\mbox{#1~\ref*{#2}}}}
+\newcommand{\figref}[2][Figure]{\hyperref[{#2}]{\mbox{#1~\ref*{#2}}}}
+
+%--------------------
+% Title
+%--------------------
+%\title{N1 Manual}
+%\date{\today}
+%\author{Dirk Heisswolf}
+%\maketitle
+
+\begin{titlepage}
+  \centering
+  \includegraphics[width=1\textwidth]{./N1_logo.eps} \par
+  \vspace{-2cm}
+  \LARGE N1 Manual \par
+  \vspace{1cm}
+  \Large Dirk Heisswolf \par
+  \vspace{0.5cm}
+  \large \today \par
+\end{titlepage}
+
+%--------------------
+% Revision history
+%--------------------
+\include{N1_history}
+
+%--------------------
+% Table of Contents
+%--------------------
+\setcounter{tocdepth}{2}
+\tableofcontents
+\pagebreak
+\listoffigures
+\pagebreak
+\listoftables
+
+%--------------------
+% Overview
+%--------------------
+\include{N1_overview}
+
+%--------------------
+% Instruction set
+%--------------------
+\include{N1_opcodes}
+
+%--------------------
+% ANS Forth core words
+%--------------------
+\include{N1_words}
+
+%--------------------
+% Stacks
+%--------------------
+\include{N1_stacks}
+
+%--------------------
+% Reset, IRQs, and exceptions
+%--------------------
+\include{N1_reset}
+
+%--------------------
+% N1 Integration guide
+%--------------------
+\include{N1_integration}
+
+%--------------------
+% N1 Architecture
+%--------------------
+%\include{N1_architecture}
+
+%--------------------
+% Verification 
+%--------------------
+\include{N1_verification}
+
+%--------------------
+% Tool summary
+%--------------------
+\include{N1_tools}
+
+%--------------------
+% Glossary
+%--------------------
+%\clearpage
+\setglossarystyle{altlist}
+\printglossaries
+
+%--------------------
+% Bibliography
+%--------------------
+\clearpage
+%\phantomsection
+%\addcontentsline{toc}{section}{References}
+\section{References}
+\bibliographystyle{plain}
+\renewcommand{\section}[2]{}%
+\bibliography{N1.bib}
+
+\end{document}
