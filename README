@@ -1,14 +1,24 @@
 NiNA
 ====
 
-NiNA is a small computer system integrating N1 CPUs. 
+NiNA is a small computer system integrating two N1 CPUs. 
 
 Directories:
 ============
 |
 +-components           
 |  |
+|  +-iCE40_Primitives   - Behavioral models for iCE40 primitives
+|  |
 |  +-N1                 - N1 processor
+|  |
+|  +-NiNA_Core          - Core layer (digital logic and RAMs)
+|  |
+|  +-NiNA_PMem          - Program memory
+|  |
+|  +-NiNA_Regs          - Register block
+|  |
+|  +-NiNA_SMem          - Stack memory
 |  |
 |  +-WbXbc              - Wishbone crossbar components
 |  |
