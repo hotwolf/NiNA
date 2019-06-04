@@ -1,5 +1,5 @@
 //###############################################################################
-//# NiNA - Behavioral Model of the SB_RAM256x16 RAM Cell                        #
+//# NiNA - Behavioral Model of the SB_RAM256x16 Dual-ported RAM Cell            #
 //###############################################################################
 //#    Copyright 2018 - 2019 Dirk Heisswolf                                     #
 //#    This file is part of the N1 project.                                     #
@@ -18,9 +18,9 @@
 //#    along with N1.  If not, see <http://www.gnu.org/licenses/>.              #
 //###############################################################################
 //# Description:                                                                #
-//#    This is a behavioral model of the SB_RAM256x16 RAM Scell, which is       #
-//#    available on all Lattice iCE40 FPGA devices. This model has been written #
-//#    based on the public documentation from Lattice.                          #
+//#    This is a behavioral model of the SB_RAM256x16 dual-ported RAM cell,     #
+//#    which is available on all Lattice iCE40 FPGA devices. This model has     #
+//#    been written based on the public documentation from Lattice.             #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
